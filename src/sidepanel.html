@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Translator</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div id="app">
+    <!-- ─── Main View ──────────────────────────────── -->
+    <div id="main-view" class="view active">
+      <!-- Header -->
+      <header id="header">
+        <div class="header-left">
+          <span class="app-title">My Translator</span>
+        </div>
+        <div class="header-right">
+          <button id="btn-settings" class="icon-btn" title="Settings">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Status Bar -->
+      <div id="status-bar">
+        <span id="status-dot" class="status-dot idle"></span>
+        <span id="status-text">Ready</span>
+        <span id="status-timer" class="status-timer"></span>
+      </div>
+
+      <!-- Transcript Area -->
+      <div id="transcript-container">
+        <div id="transcript-content">
+          <div class="transcript-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+            <p>Click the extension icon to start translating</p>
+            <p class="hint">Captures audio from the active tab</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Bar -->
+      <div id="action-bar">
+        <button id="btn-tts" class="action-btn" title="Toggle TTS (read aloud)">
+          <svg id="icon-tts-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+          <svg id="icon-tts-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+        </button>
+        <button id="btn-font-down" class="action-btn" title="Decrease font size">A-</button>
+        <button id="btn-font-up" class="action-btn" title="Increase font size">A+</button>
+        <div class="action-spacer"></div>
+        <button id="btn-clear" class="action-btn" title="Clear transcript">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+        </button>
+        <button id="btn-copy" class="action-btn" title="Copy transcript">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ─── Settings View ──────────────────────────── -->
+    <div id="settings-view" class="view">
+      <header id="settings-header">
+        <button id="btn-back" class="icon-btn" title="Back">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"/>
+            <polyline points="12 19 5 12 12 5"/>
+          </svg>
+        </button>
+        <span class="settings-title">Settings</span>
+      </header>
+
+      <div class="settings-body">
+        <!-- API Key -->
+        <div class="settings-section">
+          <label class="settings-label">Soniox API Key</label>
+          <div class="input-group">
+            <input type="password" id="input-api-key" placeholder="Enter your Soniox API key" autocomplete="off">
+            <button id="btn-toggle-key" class="icon-btn-sm" title="Show/hide key">👁</button>
+          </div>
+          <p class="settings-hint">Get a free key at <a href="https://console.soniox.com/signup/" target="_blank" id="link-soniox">soniox.com</a></p>
+        </div>
+
+        <!-- Languages -->
+        <div class="settings-section">
+          <label class="settings-label">Source Language</label>
+          <select id="select-source-lang">
+            <option value="auto">Auto-detect</option>
+            <option value="en">English</option>
+            <option value="vi">Vietnamese</option>
+            <option value="ja">Japanese</option>
+            <option value="ko">Korean</option>
+            <option value="zh">Chinese</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="es">Spanish</option>
+            <option value="pt">Portuguese</option>
+            <option value="ru">Russian</option>
+            <option value="th">Thai</option>
+            <option value="id">Indonesian</option>
+          </select>
+        </div>
+
+        <div class="settings-section">
+          <label class="settings-label">Target Language</label>
+          <select id="select-target-lang">
+            <option value="vi">Vietnamese</option>
+            <option value="en">English</option>
+            <option value="ja">Japanese</option>
+            <option value="ko">Korean</option>
+            <option value="zh">Chinese</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="es">Spanish</option>
+            <option value="pt">Portuguese</option>
+            <option value="ru">Russian</option>
+          </select>
+        </div>
+
+        <!-- Display -->
+        <div class="settings-section">
+          <label class="settings-label">Font Size</label>
+          <div class="range-group">
+            <input type="range" id="range-font-size" min="12" max="48" value="15">
+            <span id="font-size-value">15px</span>
+          </div>
+        </div>
+
+        <!-- TTS -->
+        <div class="settings-section">
+          <label class="settings-label">TTS Provider</label>
+          <select id="select-tts-provider">
+            <option value="browser">Browser Built-in (Free)</option>
+            <option value="google">Google Chirp 3 HD</option>
+          </select>
+          <p id="tts-provider-hint" class="settings-hint">Free, uses your browser's built-in voices</p>
+        </div>
+
+        <!-- Google TTS settings (hidden by default) -->
+        <div id="tts-google-settings" class="settings-section" style="display:none">
+          <label class="settings-label">Google TTS API Key</label>
+          <div class="input-group">
+            <input type="password" id="input-google-tts-key" placeholder="Google Cloud API key" autocomplete="off">
+            <button id="btn-toggle-google-key" class="icon-btn-sm" title="Show/hide key">👁</button>
+          </div>
+
+          <label class="settings-label">Voice</label>
+          <select id="select-google-voice">
+            <option value="vi-VN-Chirp3-HD-Aoede">Vietnamese - Aoede</option>
+            <option value="vi-VN-Chirp3-HD-Kore">Vietnamese - Kore</option>
+            <option value="vi-VN-Chirp3-HD-Puck">Vietnamese - Puck</option>
+            <option value="en-US-Chirp3-HD-Kore">English US - Kore</option>
+            <option value="en-US-Chirp3-HD-Aoede">English US - Aoede</option>
+            <option value="ja-JP-Chirp3-HD-Aoede">Japanese - Aoede</option>
+          </select>
+
+          <label class="settings-label">Speed</label>
+          <div class="range-group">
+            <input type="range" id="range-google-speed" min="0.5" max="2.0" step="0.1" value="1.0">
+            <span id="google-speed-value">1.0x</span>
+          </div>
+        </div>
+
+        <!-- Browser TTS settings -->
+        <div id="tts-browser-settings" class="settings-section">
+          <label class="settings-label">Speed</label>
+          <div class="range-group">
+            <input type="range" id="range-browser-speed" min="0.5" max="2.0" step="0.1" value="1.0">
+            <span id="browser-speed-value">1.0x</span>
+          </div>
+        </div>
+
+        <!-- Custom Context -->
+        <div class="settings-section">
+          <label class="settings-label">Custom Context</label>
+          <input type="text" id="input-context-domain" placeholder="e.g. Medical lecture, Tech conference">
+          <p class="settings-hint">Helps Soniox understand domain-specific vocabulary</p>
+        </div>
+
+        <div class="settings-section">
+          <label class="settings-label">Translation Terms</label>
+          <div id="translation-terms-list"></div>
+          <button id="btn-add-term" class="btn-secondary">+ Add Term</button>
+        </div>
+
+        <!-- Save -->
+        <div class="settings-actions">
+          <button id="btn-save-settings" class="btn-primary">Save Settings</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <script src="sidepanel.js" type="module"></script>
+</body>
+</html>

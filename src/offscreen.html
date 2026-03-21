@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Offscreen</title></head>
+<body>
+<!-- 
+  Offscreen Document — invisible DOM context for:
+  1. Tab audio capture via getUserMedia
+  2. Audio processing via AudioContext + AudioWorklet
+  3. Soniox WebSocket connection
+  
+  This document runs in the background and communicates
+  with the service worker and side panel via chrome.runtime messaging.
+-->
+<script src="offscreen.js" type="module"></script>
+</body>
+</html>
